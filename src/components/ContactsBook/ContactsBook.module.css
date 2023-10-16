@@ -12,6 +12,9 @@ h1 {
   color: rgb(1, 1, 116);
   text-align: center;
 }
+.listTitle {
+  color: rgb(1, 1, 116);
+}
 
 .label {
   line-height: 1.5;

@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operations';
 import css from './RegisterForm.module.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,10 @@ export const RegisterForm = () => {
         password: form.elements.password.value,
       })
     );
+    toast.success(`Your registration is success`, {
+      duration: 2000,
+      position: 'top-center',
+    });
     form.reset();
   };
 
@@ -33,6 +38,7 @@ export const RegisterForm = () => {
         <input type="password" name="password" />
       </label>
       <button type="submit">Register</button>
+      <Toaster />
     </form>
   );
 };

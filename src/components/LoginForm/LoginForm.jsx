@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
 import css from './LoginForm.module.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,10 @@ export const LoginForm = () => {
         password: form.elements.password.value,
       })
     );
+    toast.success(`enter to your phone book is success`, {
+      duration: 2000,
+      position: 'top-center',
+    });
     form.reset();
   };
 
@@ -28,6 +33,7 @@ export const LoginForm = () => {
         <input type="password" name="password" />
       </label>
       <button type="submit">Log In</button>
+      <Toaster />
     </form>
   );
 };

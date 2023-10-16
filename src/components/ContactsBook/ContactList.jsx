@@ -14,9 +14,10 @@ export const ContactList = () => {
   };
   return (
     <ul className={css.list}>
+      <h1 className={css.listTitle}>Contacts list</h1>
       {contacts.map(contact => (
         <li key={contact.id}>
-          {contact.name} - {contact.phone}
+          {contact.name} - {contact.number}
           <button
             className={css.button_delete}
             onClick={() => handleDelete(contact.id)}
