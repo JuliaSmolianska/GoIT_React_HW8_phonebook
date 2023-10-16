@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://65226b0ef43b179384147b7d.mockapi.io';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
 // Utility to add JWT
 const setAuthHeader = token => {
@@ -19,12 +19,13 @@ const clearAuthHeader = () => {
  */
 export const register = createAsyncThunk(
   'auth/register',
-  async (credentials, thunkAPI) => {
+  async (user, thunkAPI) => {
     try {
-      const res = await axios.post('/users/signup', credentials);
+      const { data } = await axios.post('/users/signup', user);
       // After successful registration, add the token to the HTTP header
-      setAuthHeader(res.data.token);
-      return res.data;
+      setAuthHeader(data.token);
+      console.log(user, 'signup');
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -35,19 +36,17 @@ export const register = createAsyncThunk(
  * POST @ /users/login
  * body: { email, password }
  */
-export const logIn = createAsyncThunk(
-  'auth/login',
-  async (credentials, thunkAPI) => {
-    try {
-      const res = await axios.post('/users/login', credentials);
-      // After successful login, add the token to the HTTP header
-      setAuthHeader(res.data.token);
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+export const logIn = createAsyncThunk('auth/login', async (user, thunkAPI) => {
+  try {
+    const { data } = await axios.post('/users/login', user);
+    // After successful login, add the token to the HTTP header
+    setAuthHeader(data.token);
+    console.log(user, 'login');
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});
 
 /*
  * POST @ /users/logout
@@ -82,8 +81,8 @@ export const refreshUser = createAsyncThunk(
     try {
       // If there is a token, add it to the HTTP header and perform the request
       setAuthHeader(persistedToken);
-      const res = await axios.get('/users/me');
-      return res.data;
+      const { data } = await axios.get('/users/me');
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
