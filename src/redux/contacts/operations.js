@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://api-for-bookcontacts.onrender.com/api';
+axios.defaults.baseURL = process.env.REACT_APP_API2_URL;
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, thunkApi) => {
     try {
-      const { data } = await axios.get('/contacts');
+      const { data } = await axios.get('/api/contacts');
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -19,8 +19,8 @@ export const addContact = createAsyncThunk(
   'contact/addContact',
   async (contact, thunkApi) => {
     try {
-      const { data } = await axios.post('/contacts', contact);
       console.log(contact);
+      const { data } = await axios.post('/api/contacts', contact);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -32,8 +32,9 @@ export const deleteContact = createAsyncThunk(
   'contact/deleteContact',
   async (id, thunkApi) => {
     try {
-      const { data } = await axios.delete(`/contacts/${id}`);
-      return data.id;
+      const { data } = await axios.delete(`/api/contacts/${id}`);
+      console.log(data)
+      return data._id;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }

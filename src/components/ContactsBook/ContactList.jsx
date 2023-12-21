@@ -9,18 +9,18 @@ export const ContactList = () => {
 
   const dispatch = useDispatch();
 
-  const handleDelete = id => {
-    dispatch(deleteContact(id));
+  const handleDelete = _id => {
+    dispatch(deleteContact(_id));
   };
   return (
     <ul className={css.list}>
       <h1 className={css.listTitle}>Contacts list</h1>
       {contacts.map(contact => (
-        <li key={contact.id}>
-          {contact.name} - {contact.number}
+        <li key={contact._id}>
+          {contact.name} - {contact.phone}
           <button
             className={css.button_delete}
-            onClick={() => handleDelete(contact.id)}
+            onClick={() => handleDelete(contact._id)}
           >
             {' '}
             <AiFillDelete />

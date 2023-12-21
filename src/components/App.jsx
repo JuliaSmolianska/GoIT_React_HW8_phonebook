@@ -7,6 +7,8 @@ import { RestrictedRoute } from './RestrictedRoute';
 import { refreshUser } from 'redux/auth/operations';
 import { useAuth } from '../hooks/useAuth';
 
+// "https://goitacademy.github.io/GoIT_React_HW8_phonebook/"
+
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
 const LoginPage = lazy(() => import('../pages/Login'));
@@ -29,8 +31,8 @@ export const App = () => {
         <Route
           path="/register"
           element={
-            <RestrictedRoute
-              redirectTo="/contacts"
+            <PrivateRoute
+              redirectTo="/login"
               component={<RegisterPage />}
             />
           }

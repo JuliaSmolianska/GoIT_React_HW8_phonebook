@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://api-for-bookcontacts.onrender.com';
+//axios.defaults.baseURL = 'https://api-for-bookcontacts.onrender.com';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 // Utility to add JWT
 const setAuthHeader = token => {
@@ -21,7 +22,12 @@ export const register = createAsyncThunk(
   'auth/register',
   async (user, thunkAPI) => {
     try {
+      console.log("this is the user:")
+      console.log(user);
+
       const { data } = await axios.post('/users/register', user);
+      console.log(data)
+      console.log('Request URL:', axios.defaults.baseURL + '/users/login');
       // After successful registration, add the token to the HTTP header
       setAuthHeader(data.token);
       return data;
@@ -37,7 +43,9 @@ export const register = createAsyncThunk(
  */
 export const logIn = createAsyncThunk('auth/login', async (user, thunkAPI) => {
   try {
+    //console.log('Request URL:', axios.defaults.baseURL + '/users/login');
     const { data } = await axios.post('/users/login', user);
+
     // After successful login, add the token to the HTTP header
     setAuthHeader(data.token);
     return data;

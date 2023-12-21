@@ -11,13 +11,13 @@ export const RegisterForm = () => {
     const form = e.currentTarget;
     dispatch(
       register({
-        name: form.elements.name.value,
+        username: form.elements.name.value,
         email: form.elements.email.value,
         password: form.elements.password.value,
       })
     );
-    toast.success(`Your registration is success`, {
-      duration: 2000,
+    toast.success(`Your registration is success. Please verify your account!`, {
+      duration: 5000,
       position: 'top-center',
     });
     form.reset();

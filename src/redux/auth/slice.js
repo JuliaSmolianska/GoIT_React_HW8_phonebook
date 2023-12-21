@@ -5,6 +5,7 @@ const initialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
+  isRegister: false,
   isRefreshing: false,
 };
 
@@ -17,7 +18,7 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
-        state.isLoggedIn = true;
+        state.isRegister = true;
       })
       .addCase(logIn.fulfilled, (state, action) => {
         state.user = action.payload.user;

@@ -11,7 +11,7 @@ const contactFormSchema = Yup.object().shape({
     .min(2, 'To short!')
     .max(30, 'So long!')
     .required('Required'),
-  number: Yup.string()
+  phone: Yup.string()
     .matches(
       /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
       'Invalid phone number format, should be 1111-11-11'
@@ -35,12 +35,12 @@ export const ContactForm = () => {
       return;
     }
     dispatch(addContact(newContact));
-    resetForm({ name: '', number: '' });
+    resetForm({ name: '', phone: '' });
   };
 
   return (
     <Formik
-      initialValues={{ name: '', number: '' }}
+      initialValues={{ name: '', phone: '' }}
       validationSchema={contactFormSchema}
       onSubmit={handleSubmit}
     >
@@ -52,12 +52,12 @@ export const ContactForm = () => {
         <Field name="name" placeholder="Enter name" />
         <ErrorMessage name="name" component="div" className={css.error} />
         <br />
-        <label htmlFor="number" className={css.label}>
+        <label htmlFor="phone" className={css.label}>
           Telephone number
         </label>
         <br />
-        <Field type="tel" name="number" placeholder="Enter number" />
-        <ErrorMessage name="number" component="div" className={css.error} />
+        <Field type="tel" name="phone" placeholder="Enter number" />
+        <ErrorMessage name="phone" component="div" className={css.error} />
         <br />
         <button type="submit" className={css.button_add}>
           Add contact
